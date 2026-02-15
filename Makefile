@@ -1,11 +1,13 @@
+all: final.out
+
 final.out: bsn.tab.c lex.yy.c
 	gcc bsn.tab.c lex.yy.c -o final.out
 
-lex.yy.c:lexx.l bsn.tab.h
+lex.yy.c: lexx.l bsn.tab.h
 	flex lexx.l
 
-bsn.tab.c:bsn.y
+bsn.tab.c bsn.tab.h: bsn.y
 	bison -d bsn.y
 
-bsn.tab.h:bsn.y
-	bison -d bsn.y
+clean:
+	rm -f final.out lex.yy.c bsn.tab.c bsn.tab.h
