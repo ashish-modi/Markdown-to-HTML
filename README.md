@@ -26,7 +26,7 @@ Markdown-to-HTML/
 ├── lexx.l          # Flex/Lex lexer rules
 ├── run.sh          # Script to build and run the converter
 ├── test1.md        # Sample Markdown input file
-├── logo.png        # Project logo
+├── logo.png        # logo
 ├── wiki.png        # Example output / illustration
 └── README.md       # Project documentation
 ```
@@ -35,7 +35,7 @@ Markdown-to-HTML/
 
 ## ✨ Features
 
-- Converts basic Markdown syntax to HTML
+- Converts a subset of Markdown syntax to HTML
 - Uses Flex for lexical analysis
 - Uses Bison/Yacc for syntax parsing
 - Demonstrates compiler construction concepts
@@ -47,8 +47,8 @@ Markdown-to-HTML/
 
 Make sure the following tools are installed:
 
-- `flex` or `lex`
-- `bison` or `yacc`
+- `flex` 
+- `bison` (version 3.x recommended)
 - `gcc` or any C compiler
 - `make`
 - Linux / macOS / Windows 
@@ -75,7 +75,7 @@ This will:
 You can convert a Markdown file to HTML using:
 
 ```bash
-./run.sh test1.md
+./run.sh test1.md output.html
 ```
 
 ---
@@ -93,3 +93,14 @@ Generated HTML:
 <h1>Hello World</h1>
 <p>This is a sample Markdown file.</p>
 ```
+
+Supported Markdown:
+
+- Headings (#)
+- Bold (**)
+- Italics (*)
+- Links
+- Images
+- Ordered lists
+- Unordered lists
+- Tables
