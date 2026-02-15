@@ -9,7 +9,7 @@
 	void ordered_list();
 	void unordered_list();
 	void check();
-	int head();
+	int head(char * s);
 	FILE *fp_o;
 	void handle(char *);
 	void handle_table(char *,int);
@@ -35,7 +35,7 @@
 %%
 /* input (non-terminal which is a collection of headings,table and paragraph) */
 
-input:		input HEADING {h_count = head();fprintf(fp_o,"<h%d>",h_count);} statement {fprintf(fp_o,"</h%d>",h_count);} EOL {fprintf(fp_o,"\n");}		
+input:		input HEADING {h_count = head($2);fprintf(fp_o,"<h%d>",h_count);} statement {fprintf(fp_o,"</h%d>",h_count);} EOL {fprintf(fp_o,"\n");}		
 		|	input {ol_c = 0;ul_c = 0;fprintf(fp_o,"<p>");} para EOL 	{check();fprintf(fp_o,"</p>\n");}
 		|	input table {fprintf(fp_o,"</tbody></table>");} EOL
 		|	EOL {fprintf(fp_o,"<html><body>\n");}
@@ -74,7 +74,7 @@ word :		ALPHA 		{fprintf(fp_o,"%s",$1);}
 /* Function which takes input from a file, 
 	invokes a parser and prints output to another file */
 
-void main(int argc,char **argv)
+int main(int argc,char **argv)
 {	extern FILE *yyin;
 	FILE *fp;
 	extern FILE *fp_o ;
@@ -84,6 +84,7 @@ void main(int argc,char **argv)
 	yyparse();
 	fclose(fp);
 	fclose(fp_o);
+	return 0;
 }
 
 /* Function to handle table implementation */
@@ -112,7 +113,7 @@ void handle_table(char * table_head,int flag)
 			else
 				flag ? fprintf(fp_o,"</th>\n<th>") : fprintf(fp_o,"</td>\n<td>");
 		}
-		*(table_head++);
+		(table_head++);
 	}
 }
 
@@ -167,7 +168,7 @@ int head(char * s)
 	{	
 		if(*s == '#')
 			count++;
-		*(s++);
+		(s++);
 	}
 	return count;
 }
@@ -209,7 +210,7 @@ void handle(char * link)
 			l_flag = 1;
 		if(*link == '[')
 			w_flag = 1;
-		*(link++);
+		(link++);
 	}
 
 	/* marking the end of word*/
